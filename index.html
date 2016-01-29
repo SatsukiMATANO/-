@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang ="ja">
+<head>
+	<meta charaset="utf-8">
+	<title>練習用</title>
+	<link rel="stylesheet" href="jquery-ui.css">
+	<script src="external/jquery/jquery.js"></script>
+	<script src="jquery-ui.js"></script>
+</head>
+<body>
+	<p>練習用</p>
+	
+	<form method="post">
+	<p>セレクト1：
+	<select id="ageselect" name="age" class="selectable">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+	</select></p>
+	
+	<p>セレクト2：
+	<select class="selectable" id="nameselect" name="names">
+		<option value="1" class="1">soumu</option>
+		<option value="2" class="1">jouhou</option>
+		<option value="3" class="2">owner</option>
+		<option value="4" class="2">staff</option>
+	</select></p>
+	<input type="submit" value="ok"/>
+	</form>
+	
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+	$("#nameselect").attr("disabled","disabled");
+    // プルダウンのoption内容をコピー
+    var pd2 = $("#nameselect option").clone();
+ 
+    // 1→2連動
+    $("#ageselect").change(function () {
+        // lv1のvalue取得
+        var lv1Val = $("#ageselect").val();
+        console.log(lv1Val);
+ 
+        // lv2Pulldownのdisabled解除
+        $("#nameselect").removeAttr("disabled");
+ 
+        // 一旦、lv2Pulldownのoptionを削除
+        $("#nameselect option").remove();
+ 
+        // (コピーしていた)元のlv2Pulldownを表示
+        $(pd2).appendTo("#nameselect");
+ 
+        // 選択値以外のクラスのoptionを削除
+        if(lv1Val != "1"){
+        $("#nameselect option[class != 2]").remove();
+ 		} else {
+ 		$("#nameselect option[class != 1]").remove();
+ 		}
+    });
+});
+</script>
+</body>
+</html>
